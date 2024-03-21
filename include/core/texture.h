@@ -15,12 +15,9 @@ enum WrapParams {
     ClampBorder = GL_CLAMP_TO_BORDER
 };
 
-enum MagFilterParams {
+enum FilterParams {
     Nearest = GL_NEAREST,
     Linear = GL_LINEAR,
-};
-
-enum MinFilterParams {
     NearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST,
     LinearMipmapNearest = GL_LINEAR_MIPMAP_NEAREST,
     NearestMipmapLinear = GL_NEAREST_MIPMAP_LINEAR,
@@ -30,6 +27,8 @@ enum MinFilterParams {
 class Texture {
 
 public:
+
+
     unsigned int ID;
     unsigned int textureAddr;
 
@@ -46,32 +45,33 @@ public:
     }
 
 
-    Texture* setWrapX(WrapParams param) {
+    Texture& setWrapX(WrapParams param) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, param);
 
-        return this;
+        return *this;
     }
 
-    Texture* setWrapY(WrapParams param) {
+    Texture& setWrapY(WrapParams param) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, param);
 
-        return this;
+        return *this;
+
     }
 
-    Texture* setMagFilter(MagFilterParams param) {
+    Texture& setMagFilter(FilterParams param) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, param);
 
-        return this;
+        return *this;
     }
 
 
-    Texture* setMinFilter(MinFilterParams param) {
+    Texture& setMinFilter(FilterParams param) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, param);
 
-        return this;
+        return *this;
     }
 
-    Texture* loadImage(std::string filename, unsigned int internalFormat, unsigned int format) {
+    Texture& loadImage(std::string filename, unsigned int internalFormat, unsigned int format) {
         stbi_set_flip_vertically_on_load(true);
 
         int width, height, nrChannels;
@@ -84,20 +84,26 @@ public:
         }
         stbi_image_free(data);
 
-        return this;
+        return *this;
     }
 
-    void activate() {
+    Texture& activate() {
         glActiveTexture(textureAddr);
+
+        return *this;
     }
 
-    void bind() {
+    Texture& bind() {
         glBindTexture(GL_TEXTURE_2D, ID);
+
+        return *this;
     }
 
-    void use() {
+    Texture& use() {
         activate();
         bind();
+
+        return *this;
     }
 };
 
