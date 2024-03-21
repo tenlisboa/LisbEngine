@@ -92,10 +92,10 @@ int main (int argc, char** argv)
 
     faceTexture
         .setWrapX(WrapParams::Repeat)
-        ->setWrapY(WrapParams::Repeat)
-        ->setMinFilter(MinFilterParams::LinearMipmapLinear)
-        ->setMagFilter(MagFilterParams::Linear)
-        ->loadImage("assets/images/awesomeface.png", GL_RGBA, GL_RGBA);
+        .setWrapY(WrapParams::Repeat)
+        .setMinFilter(FilterParams::LinearMipmapLinear)
+        .setMagFilter(FilterParams::Linear)
+        .loadImage("assets/images/awesomeface.png", GL_RGBA, GL_RGBA);
 
 
     // Load boxTexture
@@ -103,11 +103,11 @@ int main (int argc, char** argv)
     Texture boxTexture;
 
     boxTexture
-            .setWrapX(WrapParams::Repeat)
-            ->setWrapY(WrapParams::Repeat)
-            ->setMinFilter(MinFilterParams::LinearMipmapLinear)
-            ->setMagFilter(MagFilterParams::Linear)
-            ->loadImage("assets/images/container.jpg", GL_RGB, GL_RGB);
+        .setWrapX(WrapParams::Repeat)
+        .setWrapY(WrapParams::Repeat)
+        .setMinFilter(FilterParams::LinearMipmapLinear)
+        .setMagFilter(FilterParams::Linear)
+        .loadImage("assets/images/container.jpg", GL_RGB, GL_RGB);
 
     shader.use();
     shader.setInt("texture1", 0);
