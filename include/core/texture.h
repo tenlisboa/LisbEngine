@@ -1,6 +1,6 @@
 
-#ifndef OPENGLBOOK_TEXTURE_H
-#define OPENGLBOOK_TEXTURE_H
+#ifndef LISBENGINE_TEXTURE_H
+#define LISBENGINE_TEXTURE_H
 
 #include <glad/glad.h>
 
@@ -27,8 +27,6 @@ enum FilterParams {
 class Texture {
 
 public:
-
-
     unsigned int ID;
     unsigned int textureAddr;
 
@@ -107,4 +105,4 @@ public:
     }
 };
 
-#endif //OPENGLBOOK_TEXTURE_H
+#endif //LISBENGINE_TEXTURE_H

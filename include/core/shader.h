@@ -2,8 +2,8 @@
 // Created by Gabriel Lisboa on 18/03/24.
 //
 
-#ifndef OPENGLBOOK_SHADER_H
-#define OPENGLBOOK_SHADER_H
+#ifndef LISBENGINE_SHADER_H
+#define LISBENGINE_SHADER_H
 
 #include <glad/glad.h>
 
@@ -99,4 +99,4 @@ public:
     }
 };
 
-#endif //OPENGLBOOK_SHADER_H
+#endif //LISBENGINE_SHADER_H
