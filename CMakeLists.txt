@@ -11,6 +11,8 @@ add_executable(lisbengine src/main.cpp libs/glad/src/glad.cpp
         include/core/shader.h
         include/core/texture.h
         libs/stb_image/include/stb_image/stb_image.h
+        include/core/window.h
+        include/exceptions/base.h
 )
 
 

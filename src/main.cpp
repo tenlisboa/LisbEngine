@@ -1,40 +1,19 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include <core/shader.h>
-#include <core/texture.h>
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void process_input(GLFWwindow* window);
+#include "core/window.h"
+#include "core/shader.h"
+#include "core/texture.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main (int argc, char** argv)
 {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    Window window;
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    window
+        .setName("LisbEngine")
+        .setSize(SCR_WIDTH, SCR_HEIGHT)
+        .open();
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    // Build and compile our shader program
-    // -----------------------------------------------------------
 
     Shader shader("assets/shaders/shader.vert", "assets/shaders/shader.frag");
 
@@ -83,8 +62,7 @@ int main (int argc, char** argv)
     // The VBO unbind is safe because everything has been saved inside the VAO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-
+    
 
     // Load faceTexture
     // -------------------------------------
@@ -113,8 +91,9 @@ int main (int argc, char** argv)
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
 
-    while (!glfwWindowShouldClose(window)) {
-        process_input(window);
+    while (window.isOpen()) {
+        if (glfwGetKey(window.it, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            window.close();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -127,7 +106,7 @@ int main (int argc, char** argv)
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.it);
         glfwPollEvents();
     }
 
@@ -139,13 +118,4 @@ int main (int argc, char** argv)
     // Terminate cleaning all previous allocate GLFW resources
     glfwTerminate();
     return 0;
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-}
-
-void process_input(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 }
