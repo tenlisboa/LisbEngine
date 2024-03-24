@@ -6,6 +6,7 @@ set(GLFW_PATH ${CMAKE_SOURCE_DIR}/libs/glfw/3.4/lib/libglfw.3.4.dylib)
 
 include_directories(./include)
 include_directories(./libs/glfw/3.4/include ./libs/glad/include ./libs/KHR/include ./libs/stb_image/include)
+include_directories(./libs/glm/include)
 
 add_executable(lisbengine src/main.cpp libs/glad/src/glad.cpp
         include/core/shader.h

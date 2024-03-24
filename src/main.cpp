@@ -1,9 +1,13 @@
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "core/window.h"
 #include "core/shader.h"
 #include "core/texture.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
 
 int main (int argc, char** argv)
 {
@@ -91,6 +95,8 @@ int main (int argc, char** argv)
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
 
+
+
     while (window.isOpen()) {
         if (glfwGetKey(window.it, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             window.close();
@@ -100,6 +106,12 @@ int main (int argc, char** argv)
 
         boxTexture.use();
         faceTexture.use();
+
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5, -0.5, 0.0));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
+
+        shader.setMatrix("transform", trans);
 
         shader.use();
         glBindVertexArray(VAO);
