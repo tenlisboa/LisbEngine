@@ -11,42 +11,38 @@
 #include <iostream>
 #include <utility>
 
-class Window {
+const unsigned int DEFAULT_SCREEN_WIDTH = 800;
+const unsigned int DEFAULT_SCREEN_HEIGHT = 600;
+
+class Window
+{
 public:
-    GLFWwindow* it { nullptr };
+    GLFWwindow *it{nullptr};
 
-    Window() {
-        windowName = "";
-        screenHeight = 0;
-        screenWidth = 0;
+    Window(std::string name) : screenWidth(DEFAULT_SCREEN_WIDTH), screenHeight(DEFAULT_SCREEN_HEIGHT)
+    {
+        windowName = std::move(name);
 
-        glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        initializeWindow();
     }
 
-    Window& setSize(const int width, const int height) {
+    Window(std::string name, const int width, const int height)
+    {
+        windowName = std::move(name);
         screenWidth = width;
         screenHeight = height;
 
-        return *this;
+        initializeWindow();
     }
 
-    Window& setName(std::string name) {
-        windowName = std::move(name);
-
-        return *this;
-    }
-
-    Window& open() {
+    void open()
+    {
         it = glfwCreateWindow(screenWidth, screenHeight, windowName.c_str(), nullptr, nullptr);
 
-        if (it == nullptr) {
+        if (it == nullptr)
+        {
             glfwTerminate();
             throw ExceptionBase("Failed to create GLFW window");
-
         }
         glfwMakeContextCurrent(it);
         glfwSetFramebufferSizeCallback(it, Window::resizeWindow);
@@ -55,15 +51,15 @@ public:
         {
             throw ExceptionBase("Failed to load GLAD");
         }
-
-        return *this;
     }
 
-    void close() const {
+    void close() const
+    {
         glfwSetWindowShouldClose(it, true);
     }
 
-    [[nodiscard]] bool isOpen() const {
+    [[nodiscard]] bool isOpen() const
+    {
         return !glfwWindowShouldClose(it);
     }
 
@@ -71,9 +67,19 @@ private:
     int screenWidth, screenHeight;
     std::string windowName;
 
-    static void resizeWindow(GLFWwindow* _window, int width, int height) {
+    void initializeWindow()
+    {
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    }
+
+    static void resizeWindow(GLFWwindow *_window, int width, int height)
+    {
         glViewport(0, 0, width, height);
     }
 };
 
-#endif //LISBENGINE_WINDOW_H
+#endif // LISBENGINE_WINDOW_H
