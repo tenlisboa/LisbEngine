@@ -44,20 +44,19 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 
 int main(int argc, char **argv)
 {
-    Window window;
-
-    window
-        .setName("LisbEngine")
-        .setSize(SCR_WIDTH, SCR_HEIGHT)
-        .open();
+    Window window("LisbEngine", SCR_WIDTH, SCR_HEIGHT);
+    window.open();
 
     Shader shader("assets/shaders/shader.vert", "assets/shaders/shader.frag");
 
     // Set up vertex data and configure vertex attrib
     // ---------------------------------------------------
 
+    // TODO: Maybe something related with Window Config
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window.it, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    // TODO: It can be some abstraction of inputs or something
     glfwSetCursorPosCallback(window.it, mouse_callback);
     glfwSetScrollCallback(window.it, scroll_callback);
 
