@@ -1,6 +1,6 @@
 
-#ifndef LISBENGINE_TEXTURE_H
-#define LISBENGINE_TEXTURE_H
+#ifndef LISBENGINE_TEXTURE_HPP
+#define LISBENGINE_TEXTURE_HPP
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image/stb_image.h>
@@ -119,4 +119,4 @@ namespace core
     };
 }
 
-#endif // LISBENGINE_TEXTURE_H
+#endif // LISBENGINE_TEXTURE_HPP

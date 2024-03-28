@@ -4,9 +4,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "core/window.hpp"
-#include "core/shader.h"
-#include "core/texture.h"
-#include "core/camera.h"
+#include "core/shader.hpp"
+#include "core/texture.hpp"
+#include "core/camera.hpp"
 #include <math.h>
 
 const unsigned int SCR_WIDTH = 800;

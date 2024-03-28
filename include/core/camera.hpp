@@ -1,8 +1,8 @@
-#ifndef LISBENGINE_CAMERA_H
-#define LISBENGINE_CAMERA_H
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#ifndef LISBENGINE_CAMERA_HPP
+#define LISBENGINE_CAMERA_HPP
 
 namespace core
 {
@@ -115,4 +115,4 @@ namespace core
     };
 }
 
-#endif // LISBENGINE_CAMERA_H
+#endif // LISBENGINE_CAMERA_HPP

@@ -2,8 +2,8 @@
 // Created by Gabriel Lisboa on 18/03/24.
 //
 
-#ifndef LISBENGINE_SHADER_H
-#define LISBENGINE_SHADER_H
+#ifndef LISBENGINE_SHADER_HPP
+#define LISBENGINE_SHADER_HPP
 
 #include <string>
 #include <fstream>
@@ -121,4 +121,4 @@ namespace core
     };
 }
 
-#endif // LISBENGINE_SHADER_H
+#endif // LISBENGINE_SHADER_HPP
