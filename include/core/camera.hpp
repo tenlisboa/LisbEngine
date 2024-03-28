@@ -34,9 +34,9 @@ namespace core
 
         float MovementSpeed;
         float MouseSensitivity;
-        float Zoom;
+        float Fov;
 
-        Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+        Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Fov(ZOOM)
         {
             Position = position;
             WorldUp = up;
@@ -45,7 +45,7 @@ namespace core
             updateCameraVectors();
         }
 
-        Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+        Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Fov(ZOOM)
         {
             Position = glm::vec3(posX, posY, posZ);
             WorldUp = glm::vec3(upX, upY, upZ);
@@ -59,7 +59,7 @@ namespace core
             return glm::lookAt(Position, Position + Front, Up);
         }
 
-        void ProcessKeyboard(CameraMovement direction, float deltaTime)
+        void Move(CameraMovement direction, float deltaTime)
         {
             float velocity = MovementSpeed * deltaTime;
             if (direction == CameraMovement::FORWARD)
@@ -72,7 +72,7 @@ namespace core
                 Position += Right * velocity;
         }
 
-        void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
+        void Look(float xoffset, float yoffset, GLboolean constrainPitch = true)
         {
             xoffset *= MouseSensitivity;
             yoffset *= MouseSensitivity;
@@ -91,13 +91,13 @@ namespace core
             updateCameraVectors();
         }
 
-        void ProcessMouseScroll(float yoffset)
+        void Zoom(float yoffset)
         {
-            Zoom -= (float)yoffset;
-            if (Zoom < 1.0f)
-                Zoom = 1.0f;
-            if (Zoom > 45.0f)
-                Zoom = 45.0f;
+            Fov -= (float)yoffset;
+            if (Fov < 1.0f)
+                Fov = 1.0f;
+            if (Fov > 45.0f)
+                Fov = 45.0f;
         }
 
     private:
