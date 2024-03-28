@@ -1,7 +1,9 @@
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "core/window.h"
+#include "core/window.hpp"
 #include "core/shader.h"
 #include "core/texture.h"
 #include "core/camera.h"
@@ -44,21 +46,21 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 
 int main(int argc, char **argv)
 {
-    Window window("LisbEngine", SCR_WIDTH, SCR_HEIGHT);
-    window.open();
+    core::Window window("LisbEngine", SCR_WIDTH, SCR_HEIGHT);
+    window.Open();
 
-    Shader shader("assets/shaders/shader.vert", "assets/shaders/shader.frag");
+    core::Shader shader("assets/shaders/shader.vert", "assets/shaders/shader.frag");
 
     // Set up vertex data and configure vertex attrib
     // ---------------------------------------------------
 
     // TODO: Maybe something related with Window Config
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window.it, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window.It, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // TODO: It can be some abstraction of inputs or something
-    glfwSetCursorPosCallback(window.it, mouse_callback);
-    glfwSetScrollCallback(window.it, scroll_callback);
+    glfwSetCursorPosCallback(window.It, mouse_callback);
+    glfwSetScrollCallback(window.It, scroll_callback);
 
     float vertices[] = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
@@ -121,24 +123,24 @@ int main(int argc, char **argv)
 
     // Load faceTexture
     // -------------------------------------
-    Texture faceTexture(1);
+    core::Texture faceTexture(1);
 
     faceTexture
-        .setWrapX(WrapParams::Repeat)
-        .setWrapY(WrapParams::Repeat)
-        .setMinFilter(FilterParams::LinearMipmapLinear)
-        .setMagFilter(FilterParams::Linear)
+        .setWrapX(core::WrapParams::Repeat)
+        .setWrapY(core::WrapParams::Repeat)
+        .setMinFilter(core::FilterParams::LinearMipmapLinear)
+        .setMagFilter(core::FilterParams::Linear)
         .loadImage("assets/images/awesomeface.png", GL_RGBA, GL_RGBA);
 
     // Load boxTexture
     // ----------------------------------------------------
-    Texture boxTexture;
+    core::Texture boxTexture;
 
     boxTexture
-        .setWrapX(WrapParams::Repeat)
-        .setWrapY(WrapParams::Repeat)
-        .setMinFilter(FilterParams::LinearMipmapLinear)
-        .setMagFilter(FilterParams::Linear)
+        .setWrapX(core::WrapParams::Repeat)
+        .setWrapY(core::WrapParams::Repeat)
+        .setMinFilter(core::FilterParams::LinearMipmapLinear)
+        .setMagFilter(core::FilterParams::Linear)
         .loadImage("assets/images/container.jpg", GL_RGB, GL_RGB);
 
     shader.use();
@@ -157,17 +159,17 @@ int main(int argc, char **argv)
         glm::vec3(1.5f, 0.2f, -1.5f),
         glm::vec3(-1.3f, 1.0f, -1.5f)};
 
-    while (window.isOpen())
+    while (window.IsOpen())
     {
-        if (glfwGetKey(window.it, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            window.close();
-        if (glfwGetKey(window.it, GLFW_KEY_W) == GLFW_PRESS)
+        if (glfwGetKey(window.It, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            window.Close();
+        if (glfwGetKey(window.It, GLFW_KEY_W) == GLFW_PRESS)
             camera.ProcessKeyboard(core::CameraMovement::FORWARD, deltaTime);
-        if (glfwGetKey(window.it, GLFW_KEY_S) == GLFW_PRESS)
+        if (glfwGetKey(window.It, GLFW_KEY_S) == GLFW_PRESS)
             camera.ProcessKeyboard(core::CameraMovement::BACKWARD, deltaTime);
-        if (glfwGetKey(window.it, GLFW_KEY_A) == GLFW_PRESS)
+        if (glfwGetKey(window.It, GLFW_KEY_A) == GLFW_PRESS)
             camera.ProcessKeyboard(core::CameraMovement::LEFT, deltaTime);
-        if (glfwGetKey(window.it, GLFW_KEY_D) == GLFW_PRESS)
+        if (glfwGetKey(window.It, GLFW_KEY_D) == GLFW_PRESS)
             camera.ProcessKeyboard(core::CameraMovement::RIGHT, deltaTime);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -200,7 +202,7 @@ int main(int argc, char **argv)
 
         glBindVertexArray(0);
 
-        glfwSwapBuffers(window.it);
+        glfwSwapBuffers(window.It);
         glfwPollEvents();
 
         float currentFrame = glfwGetTime();

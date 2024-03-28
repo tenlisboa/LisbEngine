@@ -2,14 +2,11 @@ cmake_minimum_required(VERSION 3.27)
 project(lisbengine)
 
 set(CMAKE_CXX_STANDARD 17)
-set(GLFW_PATH ${CMAKE_SOURCE_DIR}/libs/glfw/3.4/lib/libglfw.3.4.dylib)
+set(GLFW_PATH ${CMAKE_SOURCE_DIR}/libs/glfw/libglfw.3.4.dylib)
 
 include_directories(./include)
-include_directories(./libs/glfw/3.4/include ./libs/glad/include ./libs/KHR/include ./libs/stb_image/include)
-include_directories(./libs/glm/include)
 
-add_executable(lisbengine src/main.cpp libs/glad/src/glad.cpp)
-
+add_executable(lisbengine src/main.cpp libs/glad.cpp)
 
 set(link_src "${CMAKE_SOURCE_DIR}/assets")
 set(link_dst "${CMAKE_CURRENT_BINARY_DIR}/assets")
